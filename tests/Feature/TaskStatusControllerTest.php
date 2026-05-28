@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\TaskStatus;
 use App\Models\User;
+use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -174,14 +175,30 @@ class TaskStatusControllerTest extends TestCase
      * Тест: НЕЛЬЗЯ удалить статус, если с ним связаны задачи
      * (Этот тест пока пропустим, он будет работать после создания модели Task)
      */
+/**
+ * Тест: НЕЛЬЗЯ удалить статус, если с ним связаны задачи
+ */
     public function test_cannot_delete_status_with_tasks()
     {
-        $this->markTestSkipped('Будет реализован после создания модели Task');
+        $user = User::factory()->create();
+        $status = TaskStatus::factory()->create(['name' => 'Новая']);
 
-        // TODO: Создать статус
-        // TODO: Создать задачу, связанную с этим статусом
-        // TODO: Попытаться удалить статус
-        // TODO: Проверить, что статус не удалился
-        // TODO: Проверить флеш-сообщение об ошибке
+        // Создаём задачу, связанную со статусом
+        $task = Task::factory()->create([
+        'name' => 'Тестовая задача',
+        'status_id' => $status->id,
+        'created_by_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)->delete(route('task_statuses.destroy', $status));
+
+        // Проверяем редирект на список статусов
+        $response->assertRedirect(route('task_statuses.index'));
+
+        // Проверяем флеш-сообщение об ошибке
+        $response->assertSessionHas('flash_notification');
+
+        // Проверяем, что статус не удалился
+        $this->assertDatabaseHas('task_statuses', ['id' => $status->id]);
     }
 }
