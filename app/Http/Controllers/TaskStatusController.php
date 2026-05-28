@@ -54,8 +54,8 @@ class TaskStatusController extends Controller
     {
         // Проверяем, есть ли задачи с этим статусом
         if ($taskStatus->tasks()->count() > 0) {
-            // Возвращаем ошибку 403 с кастомным сообщением
-            abort(Response::HTTP_FORBIDDEN, 'This action is unauthorized.');
+            flash()->error('Не удалось удалить статус');
+            return redirect()->route('task_statuses.index');
         }
 
         $taskStatus->delete();
