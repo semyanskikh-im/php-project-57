@@ -37,7 +37,7 @@ test-coverage:
 
 
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12
+	composer exec --verbose phpcs -- --standard=PSR12 --extensions=php app database routes tests
 
 lint-fix:
-	composer phpcbf
+	composer exec --verbose phpcbf -- --standard=PSR12 --extensions=php app database routes tests
