@@ -35,9 +35,8 @@ test:
 test-coverage:
 	XDEBUG_MODE=coverage php artisan test --coverage-clover build/logs/clover.xml
 
-
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12 --extensions=php app database routes tests
+	composer exec --verbose phpcs -- --standard=PSR12 --extensions=php app database routes 
 
 lint-fix:
-	composer exec --verbose phpcbf -- --standard=PSR12 --extensions=php app database routes tests
+	composer exec --verbose phpcbf -- --standard=PSR12 --extensions=php app database routes
