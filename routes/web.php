@@ -2,18 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\TaskStatus;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\LabelController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
-// ВРЕМЕННЫЕ ЗАГЛУШКИ (пока не созданы контроллеры)
-Route::get('/labels', function () {
-    return 'Страница меток (будет позже)';
-})->name('labels.index');
 
 // Дашборд после авторизации
 Route::middleware('auth')->group(function () {
@@ -28,12 +23,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Маршруты для статусов
+// Cтатусы (доступно всем)
 Route::get('/task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
 
+// Статусы (доступны для авторизованных)
 Route::middleware('auth')->group(function () {
     Route::resource('task_statuses', TaskStatusController::class)->only([
-        'create', 'store', 'edit', 'update', 'destroy'
+        'create',
+        'store',
+        'edit',
+        'update',
+        'destroy'
     ]);
 });
 
@@ -49,4 +49,18 @@ Route::middleware('auth')->group(function () {
     Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update')->where('id', '[0-9]+');
     Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy')->where('id', '[0-9]+');
 });
+
+// Доступен всем
+Route::get('/labels', [LabelController::class, 'index'])->name('labels.index');
+Route::get('/labels/{id}', [LabelController::class, 'show'])->name('labels.show')->where('id', '[0-9]+');
+
+// Только для авторизованных
+Route::middleware('auth')->group(function () {
+    Route::get('/labels/create', [LabelController::class, 'create'])->name('labels.create');
+    Route::post('/labels', [LabelController::class, 'store'])->name('labels.store');
+    Route::get('/labels/{id}/edit', [LabelController::class, 'edit'])->name('labels.edit')->where('id', '[0-9]+');
+    Route::put('/labels/{id}', [LabelController::class, 'update'])->name('labels.update')->where('id', '[0-9]+');
+    Route::delete('/labels/{id}', [LabelController::class, 'destroy'])->name('labels.destroy')->where('id', '[0-9]+');
+});
+
 require __DIR__ . '/auth.php';
