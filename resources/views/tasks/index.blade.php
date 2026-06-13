@@ -1,79 +1,120 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="bg-white dark:bg-gray-900">
-    <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-        <div class="grid col-span-full">
-            <h1 class="mb-5 text-3xl font-bold">Задачи</h1>
+    <section class="bg-white dark:bg-gray-900">
+        <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+            <div class="grid col-span-full">
+                <h1 class="mb-5 text-3xl font-bold">Задачи</h1>
 
-            <div class="w-full flex items-center">
-                <div class="ml-auto">
-                    @auth
-                        <a href="{{ route('tasks.create') }}" 
-                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
-                            Создать задачу
-                        </a>
-                    @endauth
-                </div>
-            </div>
+                <div class="w-full flex items-center">
+                    <div>
+                        <form method="GET" action="{{ route('tasks.index') }}">
+                            <div class="flex">
+                                <select class="rounded border-gray-300" name="filter[status_id]" id="filter[status_id]">
+                                    <option value="">Статус</option>
+                                    @foreach ($taskStatuses as $status)
+                                        <option value="{{ $status->id }}"
+                                            {{ request('filter.status_id') == $status->id ? 'selected' : '' }}>
+                                            {{ $status->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
 
-            <table class="mt-4 w-full">
-                <thead class="border-b-2 border-solid border-black text-left">
-                    <tr>
-                        <th class="px-1 py-1">ID</th>
-                        <th class="px-1 py-1">Статус</th>
-                        <th class="px-1 py-1">Имя</th>
-                        <th class="px-1 py-1">Автор</th>
-                        <th class="px-1 py-1">Исполнитель</th>
-                        <th class="px-1 py-1">Дата создания</th>
+                                <select class="rounded border-gray-300 ml-2" name="filter[created_by_id]"
+                                    id="filter[created_by_id]">
+                                    <option value="">Автор</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"
+                                            {{ request('filter.created_by_id') == $user->id ? 'selected' : '' }}>
+                                            {{ $user->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <select class="rounded border-gray-300 ml-2" name="filter[assigned_to_id]"
+                                    id="filter[assigned_to_id]">
+                                    <option value="">Исполнитель</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"
+                                            {{ request('filter.assigned_to_id') == $user->id ? 'selected' : '' }}>
+                                            {{ $user->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+                                    type="submit">
+                                    Применить
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="ml-auto">
                         @auth
-                            <th class="px-1 py-1">Действия</th>
+                            <a href="{{ route('tasks.create') }}"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                                Создать задачу
+                            </a>
                         @endauth
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($tasks as $task)
-                        <tr class="border-b border-dashed">
-                            <td class="px-1 py-1">{{ $task->id }}</td>
-                            <td class="px-1 py-1">{{ $task->status->name }}</td>
-                            <td class="px-1 py-1">
-                                <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.show', $task) }}">
-                                    {{ $task->name }}
-                                </a>
-                            </td>
-                            <td class="px-1 py-1">{{ $task->createdBy->name }}</td>
-                            <td class="px-1 py-1">{{ $task->assignedTo ? $task->assignedTo->name : '' }}</td>
-                            <td class="px-1 py-1">{{ $task->created_at->format('d.m.Y') }}</td>
+                    </div>
+                </div>
+
+                <table class="mt-4 w-full">
+                    <thead class="border-b-2 border-solid border-black text-left">
+                        <tr>
+                            <th class="px-1 py-1">ID</th>
+                            <th class="px-1 py-1">Статус</th>
+                            <th class="px-1 py-1">Имя</th>
+                            <th class="px-1 py-1">Автор</th>
+                            <th class="px-1 py-1">Исполнитель</th>
+                            <th class="px-1 py-1">Дата создания</th>
                             @auth
-                                <td class="px-1 py-1 whitespace-nowrap">
-                                    @if($task->created_by_id === Auth::id())
-                                        <form action="{{ route('tasks.destroy', $task) }}" 
-                                              method="POST" 
-                                              class="inline-block"
-                                              onsubmit="return confirm('Вы уверены?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900">
-                                                Удалить
-                                            </button>
-                                        </form>
-                                    @endif
-                                    
-                                    <a class="text-blue-600 hover:text-blue-900 ml-1" 
-                                       href="{{ route('tasks.edit', $task) }}">
-                                        Изменить
-                                    </a>
-                                </td>
+                                <th class="px-1 py-1">Действия</th>
                             @endauth
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($tasks as $task)
+                            <tr class="border-b border-dashed">
+                                <td class="px-1 py-1">{{ $task->id }}</td>
+                                <td class="px-1 py-1">{{ $task->status->name }}</td>
+                                <td class="px-1 py-1">
+                                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.show', $task) }}">
+                                        {{ $task->name }}
+                                    </a>
+                                </td>
+                                <td class="px-1 py-1">{{ $task->createdBy->name }}</td>
+                                <td class="px-1 py-1">{{ $task->assignedTo ? $task->assignedTo->name : '' }}</td>
+                                <td class="px-1 py-1">{{ $task->created_at->format('d.m.Y') }}</td>
+                                @auth
+                                    <td class="px-1 py-1 whitespace-nowrap">
+                                        @if ($task->created_by_id === Auth::id())
+                                            <form action="{{ route('tasks.destroy', $task) }}" method="POST"
+                                                class="inline-block" onsubmit="return confirm('Вы уверены?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900">
+                                                    Удалить
+                                                </button>
+                                            </form>
+                                        @endif
 
-            <div class="mt-4">
-                {{ $tasks->links() }}
+                                        <a class="text-blue-600 hover:text-blue-900 ml-1"
+                                            href="{{ route('tasks.edit', $task) }}">
+                                            Изменить
+                                        </a>
+                                    </td>
+                                @endauth
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div class="mt-4">
+                    {{ $tasks->links() }}
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection
