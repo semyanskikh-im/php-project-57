@@ -25,7 +25,7 @@
             <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
                 <div class="flex flex-wrap items-center max-w-screen-xl px-4 mx-auto">
 
- 
+
                     <div class="flex-shrink-0 w-40">
                         <a href="{{ route('home') }}" class="flex items-center">
                             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер
@@ -94,7 +94,7 @@
             </nav>
         </header>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 pt-20">
             @include('flash::message')
         </div>
 
