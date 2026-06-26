@@ -34,6 +34,12 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'password.min' => 'Пароль должен иметь длину не менее 8 символов.',
+            'password.confirmed' => 'Подтверждение пароля не совпадает.',
+            'name.required' => 'Имя обязательно для заполнения.',
+            'email.required' => 'Email обязателен для заполнения.',
+            'email.email' => 'Введите корректный email адрес.',
         ]);
 
         $user = User::create([
