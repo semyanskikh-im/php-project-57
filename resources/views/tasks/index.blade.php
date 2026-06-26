@@ -90,14 +90,11 @@
                                 @auth
                                     <td class="px-1 py-1 whitespace-nowrap">
                                         @if ($task->created_by_id === Auth::id())
-                                            <form action="{{ route('tasks.destroy', $task) }}" method="POST"
-                                                class="inline-block" onsubmit="return confirm('Вы уверены?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900">
-                                                    Удалить
-                                                </button>
-                                            </form>
+                                            <a data-confirm="Вы уверены?" data-method="delete"
+                                                href="{{ route('tasks.destroy', $task) }}"
+                                                class="text-red-600 hover:text-red-900">
+                                                Удалить
+                                            </a>
                                         @endif
 
                                         <a class="text-blue-600 hover:text-blue-900 ml-1"

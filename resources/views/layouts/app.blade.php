@@ -102,6 +102,34 @@
 
     </div>
 
+    <!-- JavaScript для обработки data-method="delete" -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[data-method="delete"]').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm(this.dataset.confirm || 'Вы уверены?')) {
+                        var form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = this.href;
+                        var csrf = document.createElement('input');
+                        csrf.type = 'hidden';
+                        csrf.name = '_token';
+                        csrf.value = '{{ csrf_token() }}';
+                        form.appendChild(csrf);
+                        var method = document.createElement('input');
+                        method.type = 'hidden';
+                        method.name = '_method';
+                        method.value = 'DELETE';
+                        form.appendChild(method);
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
