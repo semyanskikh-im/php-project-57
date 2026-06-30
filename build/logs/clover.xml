@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1781363143">
-  <project timestamp="1781363143" name="Clover Coverage">
+<coverage generated="1782816618">
+  <project timestamp="1782816618" name="Clover Coverage">
     <package name="App\Http\Controllers\Auth">
       <file name="/home/irina_s/php-project-57/app/Http/Controllers/Auth/AuthenticatedSessionController.php">
         <class name="App\Http\Controllers\Auth\AuthenticatedSessionController" namespace="App\Http\Controllers\Auth">
@@ -122,7 +122,7 @@
       </file>
       <file name="/home/irina_s/php-project-57/app/Http/Controllers/Auth/RegisteredUserController.php">
         <class name="App\Http\Controllers\Auth\RegisteredUserController" namespace="App\Http\Controllers\Auth">
-          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="16" coveredelements="16"/>
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="20" elements="22" coveredelements="22"/>
         </class>
         <line num="21" type="method" name="create" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="23" type="stmt" count="1"/>
@@ -132,15 +132,21 @@
         <line num="35" type="stmt" count="1"/>
         <line num="36" type="stmt" count="1"/>
         <line num="37" type="stmt" count="1"/>
+        <line num="38" type="stmt" count="1"/>
         <line num="39" type="stmt" count="1"/>
         <line num="40" type="stmt" count="1"/>
         <line num="41" type="stmt" count="1"/>
         <line num="42" type="stmt" count="1"/>
         <line num="43" type="stmt" count="1"/>
         <line num="45" type="stmt" count="1"/>
+        <line num="46" type="stmt" count="1"/>
         <line num="47" type="stmt" count="1"/>
+        <line num="48" type="stmt" count="1"/>
         <line num="49" type="stmt" count="1"/>
-        <metrics loc="52" ncloc="44" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="16" coveredelements="16"/>
+        <line num="51" type="stmt" count="1"/>
+        <line num="53" type="stmt" count="1"/>
+        <line num="55" type="stmt" count="1"/>
+        <metrics loc="58" ncloc="50" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="20" elements="22" coveredelements="22"/>
       </file>
       <file name="/home/irina_s/php-project-57/app/Http/Controllers/Auth/VerifyEmailController.php">
         <class name="App\Http\Controllers\Auth\VerifyEmailController" namespace="App\Http\Controllers\Auth">
@@ -470,6 +476,6 @@
         <metrics loc="18" ncloc="15" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
     </package>
-    <metrics files="23" loc="1045" ncloc="885" classes="22" methods="57" coveredmethods="46" conditionals="0" coveredconditionals="0" statements="260" coveredstatements="238" elements="317" coveredelements="284"/>
+    <metrics files="23" loc="1051" ncloc="891" classes="22" methods="57" coveredmethods="46" conditionals="0" coveredconditionals="0" statements="266" coveredstatements="244" elements="323" coveredelements="290"/>
   </project>
 </coverage>

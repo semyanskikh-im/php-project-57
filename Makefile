@@ -34,6 +34,9 @@ test:
 test-coverage:
 	XDEBUG_MODE=coverage php artisan test --coverage-clover build/logs/clover.xml
 
+test-coverage-html:
+	XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html build/coverage
+
 lint:
 	composer exec --verbose phpcs -- --standard=PSR12 --extensions=php app database routes 
 

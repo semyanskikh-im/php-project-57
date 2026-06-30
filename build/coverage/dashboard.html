@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/irina_s/php-project-57/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=12.5.3" rel="stylesheet" type="text/css">
+  <link href="_css/billboard.min.css?v=12.5.3" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=12.5.3" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/irina_s/php-project-57/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classesCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Task.php.html#8">App\Models\Task</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#13">App\Http\Requests\Auth\LoginRequest</a></td><td class="text-right">65%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#10">App\Http\Controllers\Auth\EmailVerificationPromptController</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Models/User.php.html#13">App\Models\User</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+         <th class="text-right">Complexity</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#13">App\Http\Requests\Auth\LoginRequest</a></td><td class="text-right">65.2%</td><td class="text-right">7</td><td class="text-right">9</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">0.0%</td><td class="text-right">2</td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">80.0%</td><td class="text-right">3</td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#10">App\Http\Controllers\Auth\EmailVerificationPromptController</a></td><td class="text-right">66.7%</td><td class="text-right">2</td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2 style="margin-top: 3rem;">Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodsCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/LabelController.php.html#50"><abbr title="App\Http\Controllers\LabelController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Task.php.html#27"><abbr title="App\Models\Task::createdBy">createdBy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Task.php.html#33"><abbr title="App\Models\Task::assignedTo">assignedTo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#35"><abbr title="App\Models\User::createdTasks">createdTasks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#41"><abbr title="App\Models\User::assignedTasks">assignedTasks</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#61"><abbr title="App\Http\Requests\Auth\LoginRequest::ensureIsNotRateLimited">ensureIsNotRateLimited</abbr></a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#15"><abbr title="App\Http\Controllers\Auth\EmailVerificationPromptController::__invoke">__invoke</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+         <th class="text-right">Complexity</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">0.0%</td><td class="text-right">2</td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#61"><abbr title="App\Http\Requests\Auth\LoginRequest::ensureIsNotRateLimited">ensureIsNotRateLimited</abbr></a></td><td class="text-right">20.0%</td><td class="text-right">2</td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">80.0%</td><td class="text-right">3</td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#15"><abbr title="App\Http\Controllers\Auth\EmailVerificationPromptController::__invoke">__invoke</abbr></a></td><td class="text-right">66.7%</td><td class="text-right">2</td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 12.5.3</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.15</a> and <a href="https://phpunit.de/">PHPUnit 12.5.16</a> at Tue Jun 30 10:50:18 UTC 2026.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/billboard.pkgd.min.js?v=12.5.3" type="text/javascript"></script>
+  <script type="application/json" id="complexity_class">[[0,2,"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#9","App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController","6"],[50,4,"Models\/Task.php.html#8","App\\Models\\Task","6.00"],[65.21739130434783,7,"Http\/Requests\/Auth\/LoginRequest.php.html#13","App\\Http\\Requests\\Auth\\LoginRequest","9.06"],[66.66666666666666,2,"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#10","App\\Http\\Controllers\\Auth\\EmailVerificationPromptController","2.15"],[66.66666666666666,3,"Models\/User.php.html#13","App\\Models\\User","3.33"],[80,3,"Http\/Controllers\/Auth\/VerifyEmailController.php.html#10","App\\Http\\Controllers\\Auth\\VerifyEmailController","3.07"],[93.10344827586206,8,"Http\/Controllers\/LabelController.php.html#8","App\\Http\\Controllers\\LabelController","8.02"],[96.61016949152543,10,"Http\/Controllers\/TaskController.php.html#14","App\\Http\\Controllers\\TaskController","10"],[100,3,"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#12","App\\Http\\Controllers\\Auth\\AuthenticatedSessionController","3"],[100,3,"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#12","App\\Http\\Controllers\\Auth\\ConfirmablePasswordController","3"],[100,3,"Http\/Controllers\/Auth\/NewPasswordController.php.html#17","App\\Http\\Controllers\\Auth\\NewPasswordController","3"],[100,1,"Http\/Controllers\/Auth\/PasswordController.php.html#11","App\\Http\\Controllers\\Auth\\PasswordController","1"],[100,3,"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#12","App\\Http\\Controllers\\Auth\\PasswordResetLinkController","3"],[100,2,"Http\/Controllers\/Auth\/RegisteredUserController.php.html#16","App\\Http\\Controllers\\Auth\\RegisteredUserController","2"],[100,0,"Http\/Controllers\/Controller.php.html#5","App\\Http\\Controllers\\Controller","0"],[100,4,"Http\/Controllers\/ProfileController.php.html#12","App\\Http\\Controllers\\ProfileController","4"],[100,7,"Http\/Controllers\/TaskStatusController.php.html#8","App\\Http\\Controllers\\TaskStatusController","7"],[100,1,"Http\/Requests\/ProfileUpdateRequest.php.html#10","App\\Http\\Requests\\ProfileUpdateRequest","1"],[100,1,"Models\/Label.php.html#8","App\\Models\\Label","1"],[100,1,"Models\/TaskStatus.php.html#8","App\\Models\\TaskStatus","1"],[100,2,"Providers\/AppServiceProvider.php.html#7","App\\Providers\\AppServiceProvider","2"],[100,1,"View\/Components\/AppLayout.php.html#8","App\\View\\Components\\AppLayout","1"],[100,1,"View\/Components\/GuestLayout.php.html#8","App\\View\\Components\\GuestLayout","1"]]</script>
+  <script type="application/json" id="complexity_method">[[0,2,"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#14","App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController::store","6"],[0,1,"Http\/Controllers\/LabelController.php.html#50","App\\Http\\Controllers\\LabelController::show","2"],[0,1,"Models\/Task.php.html#27","App\\Models\\Task::createdBy","2"],[0,1,"Models\/Task.php.html#33","App\\Models\\Task::assignedTo","2"],[0,1,"Models\/User.php.html#35","App\\Models\\User::createdTasks","2"],[0,1,"Models\/User.php.html#41","App\\Models\\User::assignedTasks","2"],[20,2,"Http\/Requests\/Auth\/LoginRequest.php.html#61","App\\Http\\Requests\\Auth\\LoginRequest::ensureIsNotRateLimited","4.05"],[66.66666666666666,2,"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#15","App\\Http\\Controllers\\Auth\\EmailVerificationPromptController::__invoke","2.15"],[80,3,"Http\/Controllers\/Auth\/VerifyEmailController.php.html#15","App\\Http\\Controllers\\Auth\\VerifyEmailController::__invoke","3.07"],[92.85714285714286,2,"Http\/Controllers\/TaskController.php.html#45","App\\Http\\Controllers\\TaskController::store","2.00"],[93.33333333333333,2,"Http\/Controllers\/TaskController.php.html#85","App\\Http\\Controllers\\TaskController::update","2.00"],[100,1,"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#17","App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::create","1"],[100,1,"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#25","App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::store","1"],[100,1,"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#37","App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::destroy","1"],[100,1,"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#17","App\\Http\\Controllers\\Auth\\ConfirmablePasswordController::show","1"],[100,2,"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#25","App\\Http\\Controllers\\Auth\\ConfirmablePasswordController::store","2"],[100,1,"Http\/Controllers\/Auth\/NewPasswordController.php.html#22","App\\Http\\Controllers\\Auth\\NewPasswordController::create","1"],[100,2,"Http\/Controllers\/Auth\/NewPasswordController.php.html#32","App\\Http\\Controllers\\Auth\\NewPasswordController::store","2"],[100,1,"Http\/Controllers\/Auth\/PasswordController.php.html#16","App\\Http\\Controllers\\Auth\\PasswordController::update","1"],[100,1,"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#17","App\\Http\\Controllers\\Auth\\PasswordResetLinkController::create","1"],[100,2,"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#27","App\\Http\\Controllers\\Auth\\PasswordResetLinkController::store","2"],[100,1,"Http\/Controllers\/Auth\/RegisteredUserController.php.html#21","App\\Http\\Controllers\\Auth\\RegisteredUserController::create","1"],[100,1,"Http\/Controllers\/Auth\/RegisteredUserController.php.html#31","App\\Http\\Controllers\\Auth\\RegisteredUserController::store","1"],[100,1,"Http\/Controllers\/LabelController.php.html#14","App\\Http\\Controllers\\LabelController::index","1"],[100,1,"Http\/Controllers\/LabelController.php.html#24","App\\Http\\Controllers\\LabelController::create","1"],[100,1,"Http\/Controllers\/LabelController.php.html#32","App\\Http\\Controllers\\LabelController::store","1"],[100,1,"Http\/Controllers\/LabelController.php.html#60","App\\Http\\Controllers\\LabelController::edit","1"],[100,1,"Http\/Controllers\/LabelController.php.html#69","App\\Http\\Controllers\\LabelController::update","1"],[100,2,"Http\/Controllers\/LabelController.php.html#89","App\\Http\\Controllers\\LabelController::destroy","2"],[100,1,"Http\/Controllers\/ProfileController.php.html#17","App\\Http\\Controllers\\ProfileController::edit","1"],[100,2,"Http\/Controllers\/ProfileController.php.html#27","App\\Http\\Controllers\\ProfileController::update","2"],[100,1,"Http\/Controllers\/ProfileController.php.html#43","App\\Http\\Controllers\\ProfileController::destroy","1"],[100,1,"Http\/Controllers\/TaskController.php.html#17","App\\Http\\Controllers\\TaskController::index","1"],[100,1,"Http\/Controllers\/TaskController.php.html#36","App\\Http\\Controllers\\TaskController::create","1"],[100,1,"Http\/Controllers\/TaskController.php.html#70","App\\Http\\Controllers\\TaskController::show","1"],[100,1,"Http\/Controllers\/TaskController.php.html#76","App\\Http\\Controllers\\TaskController::edit","1"],[100,2,"Http\/Controllers\/TaskController.php.html#112","App\\Http\\Controllers\\TaskController::destroy","2"],[100,1,"Http\/Controllers\/TaskStatusController.php.html#10","App\\Http\\Controllers\\TaskStatusController::index","1"],[100,1,"Http\/Controllers\/TaskStatusController.php.html#16","App\\Http\\Controllers\\TaskStatusController::create","1"],[100,1,"Http\/Controllers\/TaskStatusController.php.html#21","App\\Http\\Controllers\\TaskStatusController::store","1"],[100,1,"Http\/Controllers\/TaskStatusController.php.html#34","App\\Http\\Controllers\\TaskStatusController::edit","1"],[100,1,"Http\/Controllers\/TaskStatusController.php.html#39","App\\Http\\Controllers\\TaskStatusController::update","1"],[100,2,"Http\/Controllers\/TaskStatusController.php.html#52","App\\Http\\Controllers\\TaskStatusController::destroy","2"],[100,1,"Http\/Requests\/Auth\/LoginRequest.php.html#18","App\\Http\\Requests\\Auth\\LoginRequest::authorize","1"],[100,1,"Http\/Requests\/Auth\/LoginRequest.php.html#28","App\\Http\\Requests\\Auth\\LoginRequest::rules","1"],[100,2,"Http\/Requests\/Auth\/LoginRequest.php.html#41","App\\Http\\Requests\\Auth\\LoginRequest::authenticate","2"],[100,1,"Http\/Requests\/Auth\/LoginRequest.php.html#82","App\\Http\\Requests\\Auth\\LoginRequest::throttleKey","1"],[100,1,"Http\/Requests\/ProfileUpdateRequest.php.html#17","App\\Http\\Requests\\ProfileUpdateRequest::rules","1"],[100,1,"Models\/Label.php.html#20","App\\Models\\Label::tasks","1"],[100,1,"Models\/Task.php.html#21","App\\Models\\Task::status","1"],[100,1,"Models\/Task.php.html#39","App\\Models\\Task::labels","1"],[100,1,"Models\/TaskStatus.php.html#14","App\\Models\\TaskStatus::tasks","1"],[100,1,"Models\/User.php.html#26","App\\Models\\User::casts","1"],[100,1,"Providers\/AppServiceProvider.php.html#12","App\\Providers\\AppServiceProvider::register","1"],[100,1,"Providers\/AppServiceProvider.php.html#20","App\\Providers\\AppServiceProvider::boot","1"],[100,1,"View\/Components\/AppLayout.php.html#13","App\\View\\Components\\AppLayout::render","1"],[100,1,"View\/Components\/GuestLayout.php.html#13","App\\View\\Components\\GuestLayout::render","1"]]</script>
+  <script type="text/javascript" defer>
+  const barLabels = [
+    '0%',
+    '0-10%',
+    '10-20%',
+    '20-30%',
+    '30-40%',
+    '40-50%',
+    '50-60%',
+    '60-70%',
+    '70-80%',
+    '80-90%',
+    '90-100%',
+    '100%'
+  ];
+  const barConfig = (name, fullName, values) => ({
+    axis: {
+      x: {
+        type: "category",
+        categories: barLabels,
+      },
+      y: {
+        label: {
+          text: `#${name}`,
+          position: 'outer-top',
+        },
+      },
+    },
+    bindto: `#${name}CoverageDistribution`,
+    data: {
+      columns: [
+        [fullName].concat(values),
+      ],
+      colors: {
+        [fullName]: "rgba(69, 114, 167, 0.75)",
+      },
+      type: "bar",
+    },
+    bar: {
+      width: {
+        ratio: 0.9,
+      },
+    },
+    grid: {
+      focus: {
+        show: false,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">Coverage ${barLabels[data[0].x]}</th></tr>
+            <tr><td class="value">${data[0].value} ${name}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  bb.generate(
+    barConfig('classes', "Class Coverage", [1,0,0,0,0,0,1,3,0,1,2,15])
+  );
+  bb.generate(
+    barConfig('methods', "Method Coverage", [6,0,0,1,0,0,0,1,0,1,2,46])
+  );
+
+  const scatterConfig = (name, complexityData) => ({
+    axis: {
+      x: {
+        label: {
+          text: 'Code Coverage (in percent)',
+          position: 'outer-right',
+        },
+        tick: {
+          values: [0, 20, 40, 60, 80, 100],
+        },
+      },
+      y: {
+        label: {
+          text: 'Cyclomatic Complexity',
+          position: 'outer-top',
+        },
+        min: 0,
+        padding: {
+          bottom: 0,
+          top: 5,
+        },
+      },
+    },
+    bindto: `#${name}Complexity`,
+    data: {
+      columns: [
+        ["complexity_x"].concat(complexityData.map(d => d[0])),
+        ["complexity"].concat(complexityData.map(d => d[1])),
+      ],
+      onclick: function(data, element) {
+        window.location = complexityData[data.index][2];
+      },
+      type: "scatter",
+      xs: {
+        "complexity": "complexity_x",
+      },
+    },
+    grid: {
+      focus: {
+        show: true,
+        y: true,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        const coverage = Math.round(data[0].x);
+        const complexity = data[0].value;
+        const targetName = complexityData[data[0].index][3];
+        const crap = complexityData[data[0].index][4];
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">${targetName}</th></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Coverage</td><td class="name">${coverage}%</td></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Complexity</td><td class="value">${complexity}</td></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Crap</td><td class="value">${crap}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  const classComplexityData = JSON.parse(document.getElementById('complexity_class').textContent);
+  bb.generate(
+    scatterConfig("class", classComplexityData)
+  );
+  const methodComplexityData = JSON.parse(document.getElementById('complexity_method').textContent);
+  bb.generate(
+    scatterConfig("method", methodComplexityData),
+  );
+  </script>
+ </body>
+</html>
