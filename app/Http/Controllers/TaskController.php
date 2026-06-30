@@ -49,8 +49,9 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'required|exists:task_statuses,id',
             'assigned_to_id' => 'nullable|exists:users,id',
-            'labels' => 'nullable|array',
-            'labels.*' => 'exists:labels,id',
+        ], [
+            'name.required' => 'Это обязательное поле',
+            'status_id.required' => 'Это обязательное поле',
         ]);
 
         $validated['created_by_id'] = Auth::id();
@@ -91,8 +92,9 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'required|exists:task_statuses,id',
             'assigned_to_id' => 'nullable|exists:users,id',
-            'labels' => 'nullable|array',
-            'labels.*' => 'exists:labels,id',
+        ], [
+            'name.required' => 'Это обязательное поле',
+            'status_id.required' => 'Это обязательное поле',
         ]);
 
         $task->update($validated);

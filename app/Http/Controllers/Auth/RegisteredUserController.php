@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
             'password.min' => 'Пароль должен иметь длину не менее 8 символов.',
-            'password.confirmed' => 'Подтверждение пароля не совпадает.',
+            'password.confirmed' => 'Пароль и подтверждение не совпадают',
             'name.required' => 'Имя обязательно для заполнения.',
             'email.required' => 'Email обязателен для заполнения.',
             'email.email' => 'Введите корректный email адрес.',
