@@ -15,6 +15,13 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
 WORKDIR /app
 
 COPY . .
+
+RUN mkdir -p storage/framework/cache \
+    && mkdir -p storage/framework/sessions \
+    && mkdir -p storage/framework/views \
+    && mkdir -p storage/framework/testing \
+    && mkdir -p bootstrap/cache
+
 RUN composer install
 RUN npm ci
 RUN npm run build
