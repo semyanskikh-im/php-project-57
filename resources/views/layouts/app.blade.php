@@ -25,14 +25,12 @@
             <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
                 <div class="flex flex-wrap items-center max-w-screen-xl px-4 mx-auto">
 
-
                     <div class="flex-shrink-0 w-40">
                         <a href="{{ route('home') }}" class="flex items-center">
                             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер
                                 задач</span>
                         </a>
                     </div>
-
 
                     <div class="flex-1 flex justify-center">
                         <div class="items-center justify-center hidden lg:flex">
@@ -63,10 +61,16 @@
                         @if (Route::has('login'))
                             <div class="flex items-center gap-4">
                                 @auth
-                                    <a href="{{ route('logout') }}" data-method="POST"
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded whitespace-nowrap">
                                         Выход
                                     </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                 @else
                                     <a href="{{ route('login') }}"
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded whitespace-nowrap">
