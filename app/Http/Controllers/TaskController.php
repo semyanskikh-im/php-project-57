@@ -13,7 +13,9 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
-    // Список задач (доступен всем)
+    /**
+     * Список задач (доступен всем)
+     */
     public function index()
     {
         $tasks = QueryBuilder::for(Task::class)
@@ -32,7 +34,9 @@ class TaskController extends Controller
         return view('tasks.index', compact('tasks', 'taskStatuses', 'users'));
     }
 
-    // Форма создания (только для авторизованных)
+    /**
+     * Форма создания задачи (только для авторизованных)
+     */
     public function create()
     {
         $taskStatuses = TaskStatus::all();
@@ -41,7 +45,9 @@ class TaskController extends Controller
         return view('tasks.create', compact('taskStatuses', 'users', 'labels'));
     }
 
-    // Сохранение задачи
+    /**
+     * Сохранение новой задачи
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -49,6 +55,8 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'required|exists:task_statuses,id',
             'assigned_to_id' => 'nullable|exists:users,id',
+            'labels' => 'nullable|array',
+            'labels.*' => 'exists:labels,id',
         ], [
             'name.required' => 'Это обязательное поле',
             'status_id.required' => 'Это обязательное поле',
@@ -68,12 +76,18 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
+    /**
+     * Просмотр конкретной задачи (доступен всем)
+     */
     public function show($id)
     {
         $task = Task::with('labels')->findOrFail($id);
         return view('tasks.show', compact('task'));
     }
 
+    /**
+     * Форма редактирования задачи (только для авторизованных)
+     */
     public function edit($id)
     {
         $task = Task::with('labels')->findOrFail($id);
@@ -83,15 +97,23 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task', 'taskStatuses', 'users', 'labels'));
     }
 
+    /**
+     * Обновление задачи
+     */
     public function update(Request $request, $id)
     {
         $task = Task::findOrFail($id);
+
+        // Проверка прав через Policy
+        $this->authorize('update', $task);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'status_id' => 'required|exists:task_statuses,id',
             'assigned_to_id' => 'nullable|exists:users,id',
+            'labels' => 'nullable|array',
+            'labels.*' => 'exists:labels,id',
         ], [
             'name.required' => 'Это обязательное поле',
             'status_id.required' => 'Это обязательное поле',
@@ -111,13 +133,15 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
+    /**
+     * Удаление задачи
+     */
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
 
-        if ($task->created_by_id !== Auth::id()) {
-            abort(403, 'This action is unauthorized.');
-        }
+        // Проверка прав через Policy
+        $this->authorize('delete', $task);
 
         // Отвязываем метки перед удалением задачи
         $task->labels()->detach();
