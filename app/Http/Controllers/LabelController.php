@@ -97,7 +97,7 @@ class LabelController extends Controller
         $label = Label::findOrFail($id);
 
         // Проверяем, есть ли задачи с этой меткой
-        if ($label->tasks()->count() > 0) {
+        if ($label->tasks()->exists()) {
             flash()->error('Не удалось удалить метку');
             return redirect()->route('labels.index');
         }
