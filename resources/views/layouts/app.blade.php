@@ -61,16 +61,10 @@
                         @if (Route::has('login'))
                             <div class="flex items-center gap-4">
                                 @auth
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    <a href="{{ route('logout') }}" data-method="POST"
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded whitespace-nowrap">
                                         Выход
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
                                 @else
                                     <a href="{{ route('login') }}"
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded whitespace-nowrap">
