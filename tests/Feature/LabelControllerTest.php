@@ -11,9 +11,9 @@ use Tests\TestCase;
 class LabelControllerTest extends TestCase
 {
     /**
-     * Тест: неавторизованный пользователь может видеть список меток
+     * Гость может видеть список меток
      */
-    public function test_guest_can_view_labels()
+    public function test_index()
     {
         Label::factory()->create(['name' => 'ошибка']);
         Label::factory()->create(['name' => 'фича']);
@@ -26,18 +26,18 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может видеть форму создания
+     * Гость не может видеть форму создания
      */
-    public function test_guest_cannot_view_create_form()
+    public function test_guest_cannot_create()
     {
         $response = $this->get(route('labels.create'));
         $response->assertRedirect(route('login'));
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может создать метку
+     * Гость не может создать метку
      */
-    public function test_guest_cannot_store_label()
+    public function test_guest_cannot_store()
     {
         $labelData = Label::factory()
             ->make()
@@ -49,9 +49,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может видеть форму редактирования
+     * Гость не может видеть форму редактирования
      */
-    public function test_guest_cannot_view_edit_form()
+    public function test_guest_cannot_edit()
     {
         $label = Label::factory()->create();
 
@@ -60,9 +60,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может обновить метку
+     * Гость не может обновить метку
      */
-    public function test_guest_cannot_update_label()
+    public function test_guest_cannot_update()
     {
         $label = Label::factory()->create(['name' => 'Старое имя']);
 
@@ -77,9 +77,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может удалить метку
+     * Гость не может удалить метку
      */
-    public function test_guest_cannot_delete_label()
+    public function test_guest_cannot_destroy()
     {
         $label = Label::factory()->create();
 
@@ -89,9 +89,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может видеть список меток
+     * Авторизованный пользователь может видеть список меток
      */
-    public function test_authenticated_user_can_view_labels()
+    public function test_index_authenticated()
     {
         $user = User::factory()->create();
 
@@ -101,9 +101,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может видеть форму создания
+     * Авторизованный пользователь может видеть форму создания
      */
-    public function test_authenticated_user_can_view_create_form()
+    public function test_create()
     {
         $user = User::factory()->create();
 
@@ -113,9 +113,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может создать метку
+     * Авторизованный пользователь может создать метку
      */
-    public function test_authenticated_user_can_create_label()
+    public function test_store()
     {
         $user = User::factory()->create();
 
@@ -131,9 +131,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: метка требует название
+     * Создание метки требует название
      */
-    public function test_label_requires_name()
+    public function test_store_requires_name()
     {
         $user = User::factory()->create();
 
@@ -145,9 +145,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: имя метки должно быть уникальным
+     * Имя метки должно быть уникальным
      */
-    public function test_label_name_must_be_unique()
+    public function test_store_name_must_be_unique()
     {
         $user = User::factory()->create();
 
@@ -161,9 +161,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может видеть форму редактирования
+     * Авторизованный пользователь может видеть форму редактирования
      */
-    public function test_authenticated_user_can_view_edit_form()
+    public function test_edit()
     {
         $user = User::factory()->create();
         $label = Label::factory()->create();
@@ -176,9 +176,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может обновить метку
+     * Авторизованный пользователь может обновить метку
      */
-    public function test_authenticated_user_can_update_label()
+    public function test_update()
     {
         $user = User::factory()->create();
         $label = Label::factory()->create(['name' => 'Старое имя']);
@@ -196,9 +196,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может удалить метку (без связанных задач)
+     * Авторизованный пользователь может удалить метку (без связанных задач)
      */
-    public function test_authenticated_user_can_delete_label_without_tasks()
+    public function test_destroy()
     {
         $user = User::factory()->create();
         $label = Label::factory()->create();
@@ -211,9 +211,9 @@ class LabelControllerTest extends TestCase
     }
 
     /**
-     * Тест: НЕЛЬЗЯ удалить метку, если она связана с задачей
+     * Нельзя удалить метку, если она связана с задачей
      */
-    public function test_cannot_delete_label_with_tasks()
+    public function test_destroy_with_tasks()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();

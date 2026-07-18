@@ -2,17 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use App\Models\Task;
 use Tests\TestCase;
 
 class TaskStatusControllerTest extends TestCase
 {
     /**
-     * Тест: незалогиненный пользователь может видеть список статусов
+     * Гость может видеть список статусов
      */
-    public function test_guest_can_view_statuses()
+    public function test_index()
     {
         // Создаём несколько статусов
         TaskStatus::create(['name' => 'Новая']);
@@ -27,18 +27,18 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: незалогиненный пользователь НЕ может видеть форму создания
+     * Гость не может видеть форму создания
      */
-    public function test_guest_cannot_view_create_form()
+    public function test_guest_cannot_create()
     {
         $response = $this->get(route('task_statuses.create'));
         $response->assertRedirect(route('login'));
     }
 
     /**
-     * Тест: незалогиненный пользователь не может отправить запрос на создание статуса
+     * Гость не может создать статус
      */
-    public function test_guest_cannot_store_status()
+    public function test_guest_cannot_store()
     {
         $statusData = TaskStatus::factory()
             ->make()
@@ -53,9 +53,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: только залогиненный пользователь может видеть форму создания статуса
+     * Авторизованный пользователь может видеть форму создания
      */
-    public function test_authenticated_user_can_view_create_status_form()
+    public function test_create()
     {
         $user = User::factory()->create();
 
@@ -65,9 +65,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: только залогиненный пользователь может создать статус
+     * Авторизованный пользователь может создать статус
      */
-    public function test_authenticated_user_can_create_status()
+    public function test_store()
     {
         $user = User::factory()->create();
 
@@ -88,9 +88,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: статус не может быть создан без имени
+     * Создание статуса требует имя
      */
-    public function test_status_requires_name()
+    public function test_store_requires_name()
     {
         $user = User::factory()->create();
 
@@ -102,9 +102,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: имя статуса должно быть уникальным
+     * Имя статуса должно быть уникальным
      */
-    public function test_status_name_must_be_unique()
+    public function test_store_name_must_be_unique()
     {
         $user = User::factory()->create();
 
@@ -120,9 +120,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: только залогиненный пользователь может видеть форму редактирования статуса
+     * Авторизованный пользователь может видеть форму редактирования
      */
-    public function test_authenticated_user_can_view_edit_status_form()
+    public function test_edit()
     {
         $user = User::factory()->create();
         $status = TaskStatus::create(['name' => 'Новая']);
@@ -135,9 +135,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: только залогиненный пользователь может обновить статус
+     * Авторизованный пользователь может обновить статус
      */
-    public function test_authenticated_user_can_update_status()
+    public function test_update()
     {
         $user = User::factory()->create();
         $status = TaskStatus::create(['name' => 'Новая']);
@@ -156,9 +156,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: только залогиненный пользователь может удалить статус (если нет связанных задач)
+     * Авторизованный пользователь может удалить статус (если нет связанных задач)
      */
-    public function test_authenticated_user_can_delete_status_without_tasks()
+    public function test_destroy()
     {
         $user = User::factory()->create();
         $status = TaskStatus::create(['name' => 'Новая']);
@@ -172,9 +172,9 @@ class TaskStatusControllerTest extends TestCase
     }
 
     /**
-     * Тест: НЕЛЬЗЯ удалить статус, если с ним связаны задачи
+     * Нельзя удалить статус, если с ним связаны задачи
      */
-    public function test_cannot_delete_status_with_tasks()
+    public function test_destroy_with_tasks()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create(['name' => 'Новая']);

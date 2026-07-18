@@ -10,9 +10,9 @@ use Tests\TestCase;
 class TaskControllerTest extends TestCase
 {
     /**
-     * Тест: неавторизованный пользователь может видеть список задач
+     * Гость может видеть список задач
      */
-    public function test_guest_can_view_tasks()
+    public function test_index()
     {
         $response = $this->get(route('tasks.index'));
         $response->assertStatus(200);
@@ -20,9 +20,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь может видеть конкретную задачу
+     * Гость может видеть конкретную задачу
      */
-    public function test_guest_can_view_task()
+    public function test_show()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -38,18 +38,18 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может видеть форму создания
+     * Гость не может видеть форму создания
      */
-    public function test_guest_cannot_view_create_form()
+    public function test_guest_cannot_create()
     {
         $response = $this->get(route('tasks.create'));
         $response->assertRedirect(route('login'));
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может создать задачу
+     * Гость не может создать задачу
      */
-    public function test_guest_cannot_store_task()
+    public function test_guest_cannot_store()
     {
         $status = TaskStatus::factory()->create();
 
@@ -64,9 +64,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может видеть форму редактирования
+     * Гость не может видеть форму редактирования
      */
-    public function test_guest_cannot_view_edit_form()
+    public function test_guest_cannot_edit()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -80,9 +80,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может обновить задачу
+     * Гость не может обновить задачу
      */
-    public function test_guest_cannot_update_task()
+    public function test_guest_cannot_update()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -102,9 +102,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: неавторизованный пользователь НЕ может удалить задачу
+     * Гость не может удалить задачу
      */
-    public function test_guest_cannot_delete_task()
+    public function test_guest_cannot_destroy()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -119,9 +119,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может видеть список задач
+     * Авторизованный пользователь может видеть список задач
      */
-    public function test_authenticated_user_can_view_tasks()
+    public function test_index_authenticated()
     {
         $user = User::factory()->create();
 
@@ -131,9 +131,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может видеть форму создания
+     * Авторизованный пользователь может видеть форму создания
      */
-    public function test_authenticated_user_can_view_create_form()
+    public function test_create()
     {
         $user = User::factory()->create();
 
@@ -143,9 +143,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может создать задачу
+     * Авторизованный пользователь может создать задачу
      */
-    public function test_authenticated_user_can_create_task()
+    public function test_store()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create(['name' => 'новая']);
@@ -169,9 +169,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: задача требует название
+     * Создание задачи требует название
      */
-    public function test_task_requires_name()
+    public function test_store_requires_name()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -185,9 +185,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: задача требует статус
+     * Создание задачи требует статус
      */
-    public function test_task_requires_status()
+    public function test_store_requires_status()
     {
         $user = User::factory()->create();
 
@@ -200,9 +200,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: авторизованный пользователь может видеть форму редактирования
+     * Авторизованный пользователь может видеть форму редактирования
      */
-    public function test_authenticated_user_can_view_edit_form()
+    public function test_edit()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -219,9 +219,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: автор задачи может обновить задачу
+     * Автор задачи может обновить задачу
      */
-    public function test_author_can_update_task()
+    public function test_update()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -244,9 +244,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: НЕ автор может обновить задачу (любой залогиненный может редактировать)
+     * Не автор может обновить задачу (любой авторизованный может редактировать)
      */
-    public function test_non_author_can_update_task()
+    public function test_update_by_non_author()
     {
         $author = User::factory()->create();
         $anotherUser = User::factory()->create();
@@ -270,9 +270,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: автор задачи может удалить задачу
+     * Автор задачи может удалить задачу
      */
-    public function test_author_can_delete_task()
+    public function test_destroy()
     {
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create();
@@ -289,9 +289,9 @@ class TaskControllerTest extends TestCase
     }
 
     /**
-     * Тест: НЕ автор не может удалить задачу
+     * Не автор не может удалить задачу
      */
-    public function test_non_author_cannot_delete_task()
+    public function test_destroy_by_non_author()
     {
         $author = User::factory()->create();
         $anotherUser = User::factory()->create();
