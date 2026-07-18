@@ -5,13 +5,10 @@ namespace Tests\Feature;
 use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\Task;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TaskStatusControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * Тест: незалогиненный пользователь может видеть список статусов
      */
@@ -43,15 +40,18 @@ class TaskStatusControllerTest extends TestCase
      */
     public function test_guest_cannot_store_status()
     {
-        $response = $this->post(route('task_statuses.store'), [
-            'name' => 'Новый статус'
-        ]);
+        $statusData = TaskStatus::factory()
+            ->make()
+            ->toArray();
+
+        $response = $this->post(route('task_statuses.store'), $statusData);
 
         $response->assertRedirect(route('login'));
 
         // Проверяем, что статус не появился в базе
-        $this->assertDatabaseMissing('task_statuses', ['name' => 'Новый статус']);
+        $this->assertDatabaseMissing('task_statuses', ['name' => $statusData['name']]);
     }
+
     /**
      * Тест: только залогиненный пользователь может видеть форму создания статуса
      */
@@ -71,9 +71,9 @@ class TaskStatusControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $statusData = [
-            'name' => 'В работе'
-        ];
+        $statusData = TaskStatus::factory()
+            ->make()
+            ->toArray();
 
         $response = $this->actingAs($user)->post(route('task_statuses.store'), $statusData);
 
@@ -81,7 +81,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect(route('task_statuses.index'));
 
         // Проверяем, что статус появился в базе
-        $this->assertDatabaseHas('task_statuses', $statusData);
+        $this->assertDatabaseHas('task_statuses', ['name' => $statusData['name']]);
 
         // Проверяем флеш-сообщение
         //$response->assertSessionHas('flash_notification');
@@ -95,7 +95,7 @@ class TaskStatusControllerTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('task_statuses.store'), [
-            'name' => ''
+            'name' => '',
         ]);
 
         $response->assertSessionHasErrors('name');
@@ -113,7 +113,7 @@ class TaskStatusControllerTest extends TestCase
 
         // Пытаемся создать статус с таким же именем
         $response = $this->actingAs($user)->post(route('task_statuses.store'), [
-            'name' => 'Новая'
+            'name' => 'Новая',
         ]);
 
         $response->assertSessionHasErrors('name');
@@ -142,14 +142,14 @@ class TaskStatusControllerTest extends TestCase
         $user = User::factory()->create();
         $status = TaskStatus::create(['name' => 'Новая']);
 
-        $updatedData = [
-            'name' => 'В работе'
-        ];
+        $updatedData = TaskStatus::factory()
+            ->make(['name' => 'В работе'])
+            ->toArray();
 
         $response = $this->actingAs($user)->put(route('task_statuses.update', $status), $updatedData);
 
         $response->assertRedirect(route('task_statuses.index'));
-        $this->assertDatabaseHas('task_statuses', $updatedData);
+        $this->assertDatabaseHas('task_statuses', ['name' => $updatedData['name']]);
         $this->assertDatabaseMissing('task_statuses', ['name' => 'Новая']);
 
         $response->assertSessionHas('flash_notification');
@@ -173,11 +173,7 @@ class TaskStatusControllerTest extends TestCase
 
     /**
      * Тест: НЕЛЬЗЯ удалить статус, если с ним связаны задачи
-     * (Этот тест пока пропустим, он будет работать после создания модели Task)
      */
-/**
- * Тест: НЕЛЬЗЯ удалить статус, если с ним связаны задачи
- */
     public function test_cannot_delete_status_with_tasks()
     {
         $user = User::factory()->create();
@@ -185,9 +181,9 @@ class TaskStatusControllerTest extends TestCase
 
         // Создаём задачу, связанную со статусом
         $task = Task::factory()->create([
-        'name' => 'Тестовая задача',
-        'status_id' => $status->id,
-        'created_by_id' => $user->id,
+            'name' => 'Тестовая задача',
+            'status_id' => $status->id,
+            'created_by_id' => $user->id,
         ]);
 
         $response = $this->actingAs($user)->delete(route('task_statuses.destroy', $status));

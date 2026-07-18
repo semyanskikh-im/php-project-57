@@ -6,13 +6,10 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LabelControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * Тест: неавторизованный пользователь может видеть список меток
      */
@@ -42,12 +39,13 @@ class LabelControllerTest extends TestCase
      */
     public function test_guest_cannot_store_label()
     {
-        $response = $this->post(route('labels.store'), [
-            'name' => 'Новая метка',
-        ]);
+        $labelData = Label::factory()
+            ->make()
+            ->toArray();
 
+        $response = $this->post(route('labels.store'), $labelData);
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('labels', ['name' => 'Новая метка']);
+        $this->assertDatabaseMissing('labels', ['name' => $labelData['name']]);
     }
 
     /**
@@ -68,13 +66,14 @@ class LabelControllerTest extends TestCase
     {
         $label = Label::factory()->create(['name' => 'Старое имя']);
 
-        $response = $this->put(route('labels.update', $label), [
-            'name' => 'Новое имя',
-        ]);
+        $updatedData = Label::factory()
+            ->make(['name' => 'Новое имя'])
+            ->toArray();
 
+        $response = $this->put(route('labels.update', $label), $updatedData);
         $response->assertRedirect(route('login'));
         $this->assertDatabaseHas('labels', ['name' => 'Старое имя']);
-        $this->assertDatabaseMissing('labels', ['name' => 'Новое имя']);
+        $this->assertDatabaseMissing('labels', ['name' => $updatedData['name']]);
     }
 
     /**
@@ -120,13 +119,14 @@ class LabelControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('labels.store'), [
-            'name' => 'Новая метка',
-            'description' => 'Описание метки',
-        ]);
+        $labelData = Label::factory()
+            ->make()
+            ->toArray();
+
+        $response = $this->actingAs($user)->post(route('labels.store'), $labelData);
 
         $response->assertRedirect(route('labels.index'));
-        $this->assertDatabaseHas('labels', ['name' => 'Новая метка']);
+        $this->assertDatabaseHas('labels', ['name' => $labelData['name']]);
         $response->assertSessionHas('flash_notification');
     }
 
@@ -183,13 +183,14 @@ class LabelControllerTest extends TestCase
         $user = User::factory()->create();
         $label = Label::factory()->create(['name' => 'Старое имя']);
 
-        $response = $this->actingAs($user)->put(route('labels.update', $label), [
-            'name' => 'Новое имя',
-            'description' => 'Новое описание',
-        ]);
+        $updatedData = Label::factory()
+            ->make(['name' => 'Новое имя'])
+            ->toArray();
+
+        $response = $this->actingAs($user)->put(route('labels.update', $label), $updatedData);
 
         $response->assertRedirect(route('labels.index'));
-        $this->assertDatabaseHas('labels', ['name' => 'Новое имя']);
+        $this->assertDatabaseHas('labels', ['name' => $updatedData['name']]);
         $this->assertDatabaseMissing('labels', ['name' => 'Старое имя']);
         $response->assertSessionHas('flash_notification');
     }

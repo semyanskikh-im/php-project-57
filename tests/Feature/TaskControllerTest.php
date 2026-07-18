@@ -5,13 +5,10 @@ namespace Tests\Feature;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TaskControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * Тест: неавторизованный пользователь может видеть список задач
      */
@@ -56,13 +53,14 @@ class TaskControllerTest extends TestCase
     {
         $status = TaskStatus::factory()->create();
 
-        $response = $this->post(route('tasks.store'), [
-            'name' => 'Тестовая задача',
-            'status_id' => $status->id,
-        ]);
+        $taskData = Task::factory()
+            ->make(['status_id' => $status->id])
+            ->toArray();
+        unset($taskData['created_by_id']);
 
+        $response = $this->post(route('tasks.store'), $taskData);
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('tasks', ['name' => 'Тестовая задача']);
+        $this->assertDatabaseMissing('tasks', ['name' => $taskData['name']]);
     }
 
     /**
@@ -93,13 +91,14 @@ class TaskControllerTest extends TestCase
             'status_id' => $status->id,
         ]);
 
-        $response = $this->put(route('tasks.update', $task), [
-            'name' => 'Обновлённая задача',
-            'status_id' => $status->id,
-        ]);
+        $updatedData = Task::factory()
+            ->make(['status_id' => $status->id])
+            ->toArray();
+        unset($updatedData['created_by_id']);
 
+        $response = $this->put(route('tasks.update', $task), $updatedData);
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('tasks', ['name' => 'Обновлённая задача']);
+        $this->assertDatabaseMissing('tasks', ['name' => $updatedData['name']]);
     }
 
     /**
@@ -151,18 +150,19 @@ class TaskControllerTest extends TestCase
         $user = User::factory()->create();
         $status = TaskStatus::factory()->create(['name' => 'новая']);
 
-        $taskData = [
-            'name' => 'Новая задача',
-            'description' => 'Описание задачи',
-            'status_id' => $status->id,
-            'assigned_to_id' => $user->id,
-        ];
+        $taskData = Task::factory()
+            ->make([
+                'status_id' => $status->id,
+                'assigned_to_id' => $user->id,
+            ])
+            ->toArray();
+        unset($taskData['created_by_id']);
 
         $response = $this->actingAs($user)->post(route('tasks.store'), $taskData);
 
         $response->assertRedirect(route('tasks.index'));
         $this->assertDatabaseHas('tasks', [
-            'name' => 'Новая задача',
+            'name' => $taskData['name'],
             'created_by_id' => $user->id,
         ]);
         $response->assertSessionHas('flash_notification');
@@ -231,16 +231,15 @@ class TaskControllerTest extends TestCase
             'name' => 'Старое название',
         ]);
 
-        $updatedData = [
-            'name' => 'Новое название',
-            'description' => 'Новое описание',
-            'status_id' => $status->id,
-        ];
+        $updatedData = Task::factory()
+            ->make(['status_id' => $status->id])
+            ->toArray();
+        unset($updatedData['created_by_id']);
 
         $response = $this->actingAs($user)->put(route('tasks.update', $task), $updatedData);
 
         $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseHas('tasks', ['name' => 'Новое название']);
+        $this->assertDatabaseHas('tasks', ['name' => $updatedData['name']]);
         $response->assertSessionHas('flash_notification');
     }
 
@@ -258,13 +257,15 @@ class TaskControllerTest extends TestCase
             'name' => 'Старое название',
         ]);
 
-        $response = $this->actingAs($anotherUser)->put(route('tasks.update', $task), [
-            'name' => 'Обновлено не автором',
-            'status_id' => $status->id,
-        ]);
+        $updatedData = Task::factory()
+            ->make(['status_id' => $status->id])
+            ->toArray();
+        unset($updatedData['created_by_id']);
+
+        $response = $this->actingAs($anotherUser)->put(route('tasks.update', $task), $updatedData);
 
         $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseHas('tasks', ['name' => 'Обновлено не автором']);
+        $this->assertDatabaseHas('tasks', ['name' => $updatedData['name']]);
         $response->assertSessionHas('flash_notification');
     }
 
